@@ -5,12 +5,22 @@ const gameBoard = (() => {
         ['X', 'X', 'O']
     ];
 
+    _currentPlayer = undefined;
+
     function getState(row, column) {
         return _gameState[row - 1][column - 1];
     }
 
     function changeState(row, column, symbol) {
         _gameState[row - 1][column - 1] = symbol;
+    }
+
+    const getCurrentPlayer = () => {
+        return _currentPlayer;
+    }
+
+    const switchPlayer = (player) => {
+        _currentPlayer = player;
     }
 
     return {
@@ -31,7 +41,7 @@ const ticTacFlow = (function() {
 
 })();
 
-const displayController = (function() {
+const displayController = (() => {
     const gameCells = document.querySelectorAll(".game-cell");
 
     const _init = () => {
