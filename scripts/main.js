@@ -19,7 +19,12 @@ const gameBoard = (() => {
     };
 })();
 
-const playerFactory = () => {
+const playerFactory = (symbol, name, type = 'player') => {
+    return {
+        name,
+        symbol,
+        type,
+    }
 }
 
 const ticTacFlow = (function() {
