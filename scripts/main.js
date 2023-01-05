@@ -19,13 +19,12 @@ const gameBoard = (() => {
         return _currentPlayer;
     }
 
-    const switchPlayer = (player) => {
-        _currentPlayer = player;
-    }
+    // switchPlayer()
 
     return {
         getState,
         changeState,
+        getCurrentPlayer,
     };
 })();
 
@@ -39,13 +38,24 @@ const playerFactory = (symbol, name, type = 'player') => {
 
 const ticTacFlow = (function() {
 
+    const playOneMove = (event) => {
+        console.log(event);
+        event.target.textContent = 'X';
+
+    }
+
+    return {
+        playOneMove,
+    }
+
 })();
 
 const displayController = (() => {
     const gameCells = document.querySelectorAll(".game-cell");
 
     const _init = () => {
-        gameCells.forEach(cell => addEventListener('click', ticTacFlow./* method */ , {once: true}));
+        gameCells.forEach(cell => cell.addEventListener('click', ticTacFlow.playOneMove , {once: true}));
+
     }
 
 
@@ -55,6 +65,7 @@ const displayController = (() => {
     }
 
     return {
+        _init,
         gameCells,
         renderState,
 
@@ -62,3 +73,4 @@ const displayController = (() => {
 })();
 
 displayController.gameCells.forEach(displayController.renderState);
+displayController._init();
