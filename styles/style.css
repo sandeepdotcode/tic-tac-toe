@@ -16,8 +16,7 @@ html {
 
 /* Mode Menu */
 
-.mode-menu {
-    /* display: none; */
+#mode-menu {
     position: fixed;
     width: 100%;
     height: 100%;

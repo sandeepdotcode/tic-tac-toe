@@ -51,7 +51,17 @@ const ticTacFlow = (function() {
 })();
 
 const displayController = (() => {
+    const modeMenu = document.querySelector('#mode-menu');
+    const twoPlayerMenu = document.querySelector('#two-player-menu');
+
+    const twoPlayer = document.getElementById("2-player");
     const gameCells = document.querySelectorAll(".game-cell");
+
+    const modeSelect = (mode) => {
+        modeMenu.style.display = "none";
+        if (mode === 1)
+            twoPlayerMenu.style.display = "block";
+    }
 
     const _init = () => {
         gameCells.forEach(cell => cell.addEventListener('click', ticTacFlow.playOneMove , {once: true}));
@@ -65,12 +75,16 @@ const displayController = (() => {
     }
 
     return {
-        _init,
+        twoPlayer,
         gameCells,
+        
+        _init,
         renderState,
-
+        modeSelect,
     }
 })();
 
 displayController.gameCells.forEach(displayController.renderState);
 displayController._init();
+
+displayController.twoPlayer.addEventListener('click', displayController.modeSelect.bind(displayController.twoPlayer, 1));
