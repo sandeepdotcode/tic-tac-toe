@@ -51,4 +51,48 @@ html {
     left: 0;
     background-color: white;
     cursor: default;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.player-data-form {
+    width: 50%;
+    height: 30%;
+
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-areas: 
+                    "p1-label . p2-label"
+                    "p1-input name p2-input"
+                    ". tp-btn .";
+}
+
+#two-player-start {
+    grid-area: tp-btn;
+}
+
+label[for="p1-name"] {
+    grid-area: p1-label;
+}
+
+#p1-name {
+    grid-area: p1-input;
+}
+
+label[for="p2-name"] {
+    grid-area: p2-label;
+}
+
+#p2-name {
+    grid-area: p2-input;
+}
+
+.name-indicator {
+    grid-area: name;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
