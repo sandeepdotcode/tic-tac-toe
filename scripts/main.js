@@ -1,3 +1,13 @@
+const menuElements = (() => {
+    const p1NameInput = document.querySelector('#p1-name');
+    const p2NameInput = document.querySelector('#p2-name');
+
+    return {
+        p1NameInput,
+        p2NameInput,
+    }
+})();
+
 const gameBoard = (() => {
     let _gameState = [
         ['X', 'O', 'X'],
@@ -37,6 +47,21 @@ const playerFactory = (symbol, name, type = 'player') => {
 }
 
 const ticTacFlow = (function() {
+    
+    const setUpGame = (mode) => {
+        const p1Name = (menuElements.p1NameInput.textContent || "Player 1");
+        console.log(p1Name);
+        if (mode === 0)
+        {
+            const p2Name = "AI";
+        }
+        else if (mode === 1)
+        {
+            const p2Name = (menuElements.p2NameInput.textContent || "Player 2");
+            playerX = playerFactory('X', p1Name);
+            playerO = playerFactory('O', p2Name);
+        }
+    }
 
     const playOneMove = (event) => {
         console.log(event);
@@ -45,6 +70,7 @@ const ticTacFlow = (function() {
     }
 
     return {
+        setUpGame,
         playOneMove,
     }
 
@@ -54,16 +80,31 @@ const displayController = (() => {
     const modeMenu = document.querySelector('#mode-menu');
     const twoPlayerMenu = document.querySelector('#two-player-menu');
 
-    const twoPlayer = document.getElementById("2-player");
+    const twoPlayerBtn = document.getElementById("2-player");
+    const twoStartBtn = document.querySelector("#two-player-start");
+    
+    const playerXStat = document.querySelector(".playerX-stat");
+    const playerOStat = document.querySelector(".playerO-stat");
     const gameCells = document.querySelectorAll(".game-cell");
 
-    const modeSelect = (mode) => {
+    const showModeSubMenu = (mode) => {
         modeMenu.style.display = "none";
         if (mode === 1)
-            twoPlayerMenu.style.display = "block";
+        {
+            twoPlayerMenu.style.display = "flex";
+        }
     }
 
-    const _init = () => {
+    const _init = (mode) => {
+        if (mode === 0)
+            return;
+        else if (mode === 1)
+        {
+            twoPlayerMenu.style.display = "none";
+        }
+        playerXStat.textContent = playerX.name;
+        playerOStat.textContent = playerO.name;
+
         gameCells.forEach(cell => cell.addEventListener('click', ticTacFlow.playOneMove , {once: true}));
 
     }
@@ -75,16 +116,25 @@ const displayController = (() => {
     }
 
     return {
-        twoPlayer,
+        twoPlayerBtn,
+        twoStartBtn,
         gameCells,
         
         _init,
         renderState,
-        modeSelect,
+        showModeSubMenu,
     }
 })();
 
-displayController.gameCells.forEach(displayController.renderState);
-displayController._init();
+// displayController.gameCells.forEach(displayController.renderState);
+// displayController._init();
 
-displayController.twoPlayer.addEventListener('click', displayController.modeSelect.bind(displayController.twoPlayer, 1));
+let playerX, playerO;
+
+// displayController.singlePlayerBtn.addEventListener('click', displayController.showModeSubmenu.bind(displayController.singlePlayerBtn, 0));
+displayController.twoPlayerBtn.addEventListener('click', displayController.showModeSubMenu.bind(displayController.twoPlayerBtn, 1));
+displayController.twoStartBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    ticTacFlow.setUpGame(1);
+    displayController._init(1);
+});
