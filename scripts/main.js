@@ -83,8 +83,8 @@ const displayController = (() => {
     const twoPlayerBtn = document.getElementById("2-player");
     const twoStartBtn = document.querySelector("#two-player-start");
     
-    const playerXStat = document.querySelector(".playerX-stat");
-    const playerOStat = document.querySelector(".playerO-stat");
+    const playerXStat = document.querySelector(".playerX-name");
+    const playerOStat = document.querySelector(".playerO-name");
     const gameCells = document.querySelectorAll(".game-cell");
 
     const showModeSubMenu = (mode) => {

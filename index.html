@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="header">Tic Tac Toe</div>
+    <div class="header">Tic Tac Toe!</div>
 
     <div id="mode-menu">
         <button class="mode-btn" id="1-player">Single Player</button>
@@ -32,19 +32,30 @@
         </form>
     </div>
 
-    <button class="restart-btn">Restart</button>
-    <div class="playerX-stat"></div>
-    <div class="gameboard">
-       <div class="game-cell" data-row="1" data-column="1"></div>
-       <div class="game-cell" data-row="1" data-column="2"></div>
-       <div class="game-cell" data-row="1" data-column="3"></div>
-       <div class="game-cell" data-row="2" data-column="1"></div>
-       <div class="game-cell" data-row="2" data-column="2"></div>
-       <div class="game-cell" data-row="2" data-column="3"></div>
-       <div class="game-cell" data-row="3" data-column="1"></div>
-       <div class="game-cell" data-row="3" data-column="2"></div>
-       <div class="game-cell" data-row="3" data-column="3"></div> 
-    </div>    
-    <div class="playerO-stat"></div>
+    <div class="game-wrapper">
+        <div class="playerX-stat">
+            <div class="playerX-name">Hello</div>
+        </div>
+        <div class="gameboard">
+           <div class="game-cell" data-row="1" data-column="1"></div>
+           <div class="game-cell" data-row="1" data-column="2"></div>
+           <div class="game-cell" data-row="1" data-column="3"></div>
+           <div class="game-cell" data-row="2" data-column="1"></div>
+           <div class="game-cell" data-row="2" data-column="2"></div>
+           <div class="game-cell" data-row="2" data-column="3"></div>
+           <div class="game-cell" data-row="3" data-column="1"></div>
+           <div class="game-cell" data-row="3" data-column="2"></div>
+           <div class="game-cell" data-row="3" data-column="3"></div>
+        </div>
+        <div class="playerO-stat">
+            <div class="playerO-name">World</div>
+        </div>
+        <div class="restart-div"><button class="restart-btn">Restart</button></div>
+    </div>
+    <footer class="footer">
+        <p class="creator">Created by <a href="https://github.com/sandeepdotcode/tic-tac-toe"
+            target="_blank">Sandeep K K <i class="fab fa-github"></i></a>
+    </p>
+    </footer>
 </body>
 </html>
