@@ -15,26 +15,37 @@ const gameBoard = (() => {
         ['X', 'X', 'O']
     ];
 
-    _currentPlayer = undefined;
+    let _currentPlayer = undefined;
 
     function getState(row, column) {
         return _gameState[row - 1][column - 1];
     }
 
-    function changeState(row, column, symbol) {
-        _gameState[row - 1][column - 1] = symbol;
+    function changeState(row, column) {
+        _gameState[row - 1][column - 1] = _currentPlayer.symbol;
     }
 
     const getCurrentPlayer = () => {
         return _currentPlayer;
     }
 
-    // switchPlayer()
+    const setCurrentPlayer = () => {
+        _currentPlayer = playerX;
+    }
+
+    const switchPlayer = () => {
+        if (_currentPlayer == playerX) 
+            _currentPlayer = playerO;
+        else
+            _currentPlayer = playerX;
+    }
 
     return {
         getState,
         changeState,
+        setCurrentPlayer,
         getCurrentPlayer,
+        switchPlayer
     };
 })();
 
@@ -61,6 +72,7 @@ const ticTacFlow = (function() {
             playerX = playerFactory('X', p1Name);
             playerO = playerFactory('O', p2Name);
         }
+        
     }
 
     const playOneMove = (event) => {
