@@ -72,13 +72,12 @@ const ticTacFlow = (function() {
             playerX = playerFactory('X', p1Name);
             playerO = playerFactory('O', p2Name);
         }
-        
+        gameBoard.setCurrentPlayer();
     }
 
     const playOneMove = (event) => {
         console.log(event);
         event.target.textContent = 'X';
-
     }
 
     return {
