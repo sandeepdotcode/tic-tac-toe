@@ -64,7 +64,8 @@ const playerFactory = (symbol, name, type = 'player') => {
 }
 
 const ticTacFlow = (function() {
-    
+    let moves = 0;
+
     const setUpGame = (mode) => {
         const p1Name = (menuElements.p1NameInput.textContent || "Player 1");
         console.log(p1Name);
@@ -81,10 +82,50 @@ const ticTacFlow = (function() {
         gameBoard.setCurrentPlayer();
     }
 
-    const checkForGameEnd = () => {
-        if (checkForWin()) {
+    checkThreeInRow = (arr) => {
+        return arr.some(subArr => {
+            return subArr[0] == subArr[1] == subArr[2];
+        });
+    }
 
-        }
+    checkWinRow = () => {
+        rows = [];
+        for (let i = 1; i <= 3; i++)
+            rows.push(gameBoard.getRow(i));
+
+        return checkThreeInRow(rows);
+    }
+
+    checkWinCol = () => {
+        columns = [];
+        for (let i = 1; i <= 3; i++)
+            columns.push(gameBoard.getCol(i));
+
+        return checkThreeInRow(columns);
+    }
+
+    checkWinDiag = () => {
+        diags = gameBoard.getDiags();
+
+        return checkThreeInRow(diags);
+    }
+
+    const checkForWin = () => {
+        if (checkWinRow || checkWinCol || checkWinDiag)
+            return true;
+        else
+            return false;
+    }
+
+    const checkForGameEnd = () => {
+        const winStatus = checkForWin();
+
+        if (winStatus)
+            return "win";
+        else if (!winStatus && moves == 9)
+            return "draw";
+        else
+            return "continue";
     }
 
     const endGame = () => {
@@ -98,6 +139,7 @@ const ticTacFlow = (function() {
 
         gameBoard.changeState(row, column);
         displayController.renderState(event.target);
+        moves += 1;
 
         let roundEnd =  checkForGameEnd();  // to be built
         if (roundEnd === "win") {
