@@ -10,9 +10,9 @@ const menuElements = (() => {
 
 const gameBoard = (() => {
     let _gameState = [
-        ['X', 'O', 'X'],
-        ['O', 'O', 'X'],
-        ['X', 'X', 'O']
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
     ];
 
     let _currentPlayer = undefined;
@@ -40,12 +40,18 @@ const gameBoard = (() => {
             _currentPlayer = playerX;
     }
 
+    const reset = () => {
+        _gameState = _gameState.map(() => ['', '', '']);
+        _currentPlayer = undefined;
+    }
+
     return {
         getState,
         changeState,
         setCurrentPlayer,
         getCurrentPlayer,
-        switchPlayer
+        switchPlayer,
+        reset,
     };
 })();
 
@@ -75,9 +81,36 @@ const ticTacFlow = (function() {
         gameBoard.setCurrentPlayer();
     }
 
+    const checkForGameEnd = () => {
+        if (checkForWin()) {
+
+        }
+    }
+
+    const endGame = () => {
+        
+    }
+
     const playOneMove = (event) => {
         console.log(event);
-        event.target.textContent = 'X';
+        let row = event.target.getAttribute('data-row');
+        let column = event.target.getAttribute('data-column');
+
+        gameBoard.changeState(row, column);
+        displayController.renderState(event.target);
+
+        let roundEnd =  checkForGameEnd();  // to be built
+        if (roundEnd === "win") {
+            alert(`${gameBoard._currentPlayer} Won!`);
+            endGame();
+        }
+        else if (roundEnd === "draw") {
+            alert("It's a Draw");
+            endGame();
+        }
+        else {
+            gameBoard.switchPlayer();
+        }
     }
 
     return {
