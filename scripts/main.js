@@ -52,7 +52,7 @@ const gameBoard = (() => {
     const getCol = (num) => {
         col = [];
         for (let i = 0; i < 3; i++) {
-            col.push(_gameState[i][num]);
+            col.push(_gameState[i][num-1]);
         }
 
         return col;
@@ -70,6 +70,7 @@ const gameBoard = (() => {
                     diag2.push(_gameState[i][j]);
             }
         }
+        return [diag1, diag2];
     }
 
     return {
@@ -113,8 +114,9 @@ const ticTacFlow = (function() {
     }
 
     checkThreeInRow = (arr) => {
-        return arr.some(subArr => {
-            return subArr[0] == subArr[1] == subArr[2];
+        return arr.some((subArr) => {
+            const threeFields = subArr[0] + subArr[1] + subArr[2];
+            return (threeFields === "XXX" || threeFields === "OOO")
         });
     }
 
@@ -141,8 +143,10 @@ const ticTacFlow = (function() {
     }
 
     const checkForWin = () => {
-        if (checkWinRow || checkWinCol || checkWinDiag)
+        if (checkWinRow() || checkWinCol() || checkWinDiag())
+        {
             return true;
+        }
         else
             return false;
     }
@@ -163,7 +167,6 @@ const ticTacFlow = (function() {
     }
 
     const playOneMove = (event) => {
-        console.log(event);
         let row = event.target.getAttribute('data-row');
         let column = event.target.getAttribute('data-column');
 
@@ -171,7 +174,7 @@ const ticTacFlow = (function() {
         displayController.renderState(event.target);
         moves += 1;
 
-        let roundEnd =  checkForGameEnd();  // to be built
+        let roundEnd =  checkForGameEnd();
         if (roundEnd === "win") {
             alert(`${gameBoard._currentPlayer} Won!`);
             endGame();
