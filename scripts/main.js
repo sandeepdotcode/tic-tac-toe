@@ -176,7 +176,7 @@ const ticTacFlow = (function() {
 
         let roundEnd =  checkForGameEnd();
         if (roundEnd === "win") {
-            alert(`${gameBoard._currentPlayer} Won!`);
+            alert(`${gameBoard.getCurrentPlayer().name} Won!`);
             endGame();
         }
         else if (roundEnd === "draw") {
