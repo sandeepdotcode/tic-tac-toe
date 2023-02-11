@@ -122,7 +122,7 @@ label[for="p2-name"] {
                     "px-stat board board po-stat"
                     "px-stat board board po-stat"
                     ". board board ."
-                    ". restart restart .";
+                    ". next restart .";
 }
 
 .playerX-stat {
@@ -138,6 +138,10 @@ label[for="p2-name"] {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
+}
+
+.next-round-div {
+    grid-area: next;
 }
 
 .restart-div {
