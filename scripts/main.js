@@ -45,12 +45,42 @@ const gameBoard = (() => {
         _currentPlayer = undefined;
     }
 
+    const getRow = (num) => {
+        return _gameState[num - 1];
+    }
+
+    const getCol = (num) => {
+        col = [];
+        for (let i = 0; i < 3; i++) {
+            col.push(_gameState[i][num]);
+        }
+
+        return col;
+    }
+
+    const getDiags = () => {
+        diag1 = [];
+        diag2 = [];
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (i === j)
+                    diag1.push(_gameState[i][j]);
+                if (i + j == 2)
+                    diag2.push(_gameState[i][j]);
+            }
+        }
+    }
+
     return {
         getState,
         changeState,
         setCurrentPlayer,
         getCurrentPlayer,
         switchPlayer,
+        getRow,
+        getCol,
+        getDiags,
         reset,
     };
 })();
