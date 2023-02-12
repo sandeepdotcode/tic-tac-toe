@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
+/* sniglet-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Sniglet';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../styles/fonts/sniglet-v17-latin-regular.woff2') format('woff2'), /* Chrome 36+, Opera 23+, Firefox 39+ */
+         url('../styles/fonts/sniglet-v17-latin-regular.woff') format('woff'); /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* sniglet-800 - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Sniglet';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../styles/fonts/sniglet-v17-latin-800.woff2') format('woff2'), /* Chrome 36+, Opera 23+, Firefox 39+ */
+         url('../styles/fonts/sniglet-v17-latin-800.woff2') format('woff'); /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
+
 html {
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
@@ -138,6 +159,10 @@ label[for="p2-name"] {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
+
+    font-family: 'Sniglet', cursive;
+    font-weight: 400;
+    font-size: 80px;
 }
 
 .next-round-div {
