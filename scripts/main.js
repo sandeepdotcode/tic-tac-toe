@@ -163,7 +163,7 @@ const ticTacFlow = (function() {
     }
 
     const endGame = () => {
-        
+        displayController.deactivateFields();
     }
 
     const playOneMove = (event) => {
@@ -228,10 +228,16 @@ const displayController = (() => {
 
     }
 
-
     const renderState = function(node) {
         const [row, column] = [node.getAttribute('data-row'), node.getAttribute('data-column')];
         node.textContent = gameBoard.getState(row, column);
+    }
+
+    const deactivateFields = () => {
+        gameCells.forEach(cell => {
+            if (cell.textContent === "")
+                cell.removeEventListener('click', ticTacFlow.playOneMove);
+        });
     }
 
     return {
@@ -242,6 +248,7 @@ const displayController = (() => {
         _init,
         renderState,
         showModeSubMenu,
+        deactivateFields,
     }
 })();
 
