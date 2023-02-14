@@ -20,7 +20,7 @@ const gameBoard = (() => {
         ['', '', '']
     ];
 
-    let _currentPlayer = undefined;
+    let _currentPlayer = null;
 
     function getState(row, column) {
         return _gameState[row - 1][column - 1];
@@ -47,7 +47,7 @@ const gameBoard = (() => {
 
     const reset = () => {
         _gameState = _gameState.map(() => ['', '', '']);
-        _currentPlayer = undefined;
+        _currentPlayer = null;
     }
 
     const getRow = (num) => {
