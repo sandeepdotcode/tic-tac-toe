@@ -103,15 +103,16 @@ const ticTacFlow = (function() {
     let moves = 0;
 
     const setUpGame = (mode) => {
-        const p1Name = (menuElements.p1NameInput.textContent || "Player 1");
-        console.log(menuElements.p1NameInput);
+        const p1Name = (menuElements.p1NameInput.value || "Player 1");
+        menuElements.p1NameInput.value = "";
         if (mode === 0)
         {
             const p2Name = "AI";
         }
         else if (mode === 1)
         {
-            const p2Name = (menuElements.p2NameInput.textContent || "Player 2");
+            const p2Name = (menuElements.p2NameInput.value || "Player 2");
+            menuElements.p2NameInput.value = "";
             playerX = playerFactory('X', p1Name);
             playerO = playerFactory('O', p2Name);
         }
