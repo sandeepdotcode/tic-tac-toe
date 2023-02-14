@@ -104,7 +104,7 @@ const ticTacFlow = (function() {
 
     const setUpGame = (mode) => {
         const p1Name = (menuElements.p1NameInput.textContent || "Player 1");
-        console.log(p1Name);
+        console.log(menuElements.p1NameInput);
         if (mode === 0)
         {
             const p2Name = "AI";
@@ -200,10 +200,19 @@ const ticTacFlow = (function() {
         }
     }
 
+    const restartGame = () => {
+        gameBoard.reset();
+        displayController.resetFields();
+        moves = 0;
+
+        displayController.showModeSelect();
+    }
+
     return {
         setUpGame,
         playOneMove,
         newRound,
+        restartGame,
     }
 
 })();
@@ -218,6 +227,10 @@ const displayController = (() => {
     const playerXStat = document.querySelector(".playerX-name");
     const playerOStat = document.querySelector(".playerO-name");
     const gameCells = document.querySelectorAll(".game-cell");
+
+    const showModeSelect = () => {
+        modeMenu.style.display = "flex";
+    }
 
     const showModeSubMenu = (mode) => {
         modeMenu.style.display = "none";
@@ -240,7 +253,7 @@ const displayController = (() => {
         activateFields();
 
         menuElements.nextBtn.addEventListener('click', ticTacFlow.newRound);
-        // menuElements.restartBTn.addEventListener('click', );
+        menuElements.restartBTn.addEventListener('click', ticTacFlow.restartGame);
     }
 
     const renderState = function(node) {
@@ -272,6 +285,7 @@ const displayController = (() => {
         
         _init,
         renderState,
+        showModeSelect,
         showModeSubMenu,
         activateFields,
         deactivateFields,
