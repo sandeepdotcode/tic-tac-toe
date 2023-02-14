@@ -174,6 +174,9 @@ const ticTacFlow = (function() {
     const newRound = () => {
         gameBoard.reset();
         displayController.resetFields();
+        moves = 0;
+
+        displayController.activateFields();
         gameBoard.setCurrentPlayer();
     }
 
@@ -234,7 +237,7 @@ const displayController = (() => {
         playerXStat.textContent = `${playerX.name} (X)`;
         playerOStat.textContent = `${playerO.name} (O)`;
 
-        gameCells.forEach(cell => cell.addEventListener('click', ticTacFlow.playOneMove , {once: true}));
+        activateFields();
 
         menuElements.nextBtn.addEventListener('click', ticTacFlow.newRound);
         // menuElements.restartBTn.addEventListener('click', );
@@ -249,6 +252,10 @@ const displayController = (() => {
         gameCells.forEach(cell => {
             cell.textContent = "";
         });
+    }
+
+    const activateFields = () => {
+        gameCells.forEach(cell => cell.addEventListener('click', ticTacFlow.playOneMove , {once: true}));
     }
 
     const deactivateFields = () => {
@@ -266,6 +273,7 @@ const displayController = (() => {
         _init,
         renderState,
         showModeSubMenu,
+        activateFields,
         deactivateFields,
         resetFields,
     }
