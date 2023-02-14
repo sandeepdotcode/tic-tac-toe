@@ -2,9 +2,14 @@ const menuElements = (() => {
     const p1NameInput = document.querySelector('#p1-name');
     const p2NameInput = document.querySelector('#p2-name');
 
+    const nextBtn = document.querySelector('.next-btn');
+    const restartBTn = document.querySelector('.restart-btn');
+
     return {
         p1NameInput,
         p2NameInput,
+        nextBtn,
+        restartBTn,
     }
 })();
 
@@ -166,6 +171,12 @@ const ticTacFlow = (function() {
         displayController.deactivateFields();
     }
 
+    const newRound = () => {
+        gameBoard.reset();
+        displayController.resetFields();
+        gameBoard.setCurrentPlayer();
+    }
+
     const playOneMove = (event) => {
         let row = event.target.getAttribute('data-row');
         let column = event.target.getAttribute('data-column');
@@ -176,11 +187,9 @@ const ticTacFlow = (function() {
 
         let roundEnd =  checkForGameEnd();
         if (roundEnd === "win") {
-            alert(`${gameBoard.getCurrentPlayer().name} Won!`);
             endGame();
         }
         else if (roundEnd === "draw") {
-            alert("It's a Draw");
             endGame();
         }
         else {
@@ -191,6 +200,7 @@ const ticTacFlow = (function() {
     return {
         setUpGame,
         playOneMove,
+        newRound,
     }
 
 })();
@@ -221,16 +231,24 @@ const displayController = (() => {
         {
             twoPlayerMenu.style.display = "none";
         }
-        playerXStat.textContent = playerX.name;
-        playerOStat.textContent = playerO.name;
+        playerXStat.textContent = `${playerX.name} (X)`;
+        playerOStat.textContent = `${playerO.name} (O)`;
 
         gameCells.forEach(cell => cell.addEventListener('click', ticTacFlow.playOneMove , {once: true}));
 
+        menuElements.nextBtn.addEventListener('click', ticTacFlow.newRound);
+        // menuElements.restartBTn.addEventListener('click', );
     }
 
     const renderState = function(node) {
         const [row, column] = [node.getAttribute('data-row'), node.getAttribute('data-column')];
         node.textContent = gameBoard.getState(row, column);
+    }
+
+    const resetFields = () => {
+        gameCells.forEach(cell => {
+            cell.textContent = "";
+        });
     }
 
     const deactivateFields = () => {
@@ -249,6 +267,7 @@ const displayController = (() => {
         renderState,
         showModeSubMenu,
         deactivateFields,
+        resetFields,
     }
 })();
 
