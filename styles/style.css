@@ -26,12 +26,18 @@
     --field-color: #E85D75;
     --github-icon-color: #9D69A3;
     --button-color: #D9D9D9;
+    --button-text: #331832;
+
+    --field-hover: #c54f63;
+
 }
 
 
 html {
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Sniglet', cursive;
+    font-weight: 400;
+    color: var(--text-color_main);
     height: 100%;
 }
 
@@ -54,8 +60,6 @@ body {
     text-align: center;
     color: var(--text-color_main);
 
-    font-family: 'Sniglet', cursive;
-    font-weight: 400;
     font-size: 96px;
 }
 
@@ -148,23 +152,29 @@ label[for="p2-name"] {
 .game-wrapper {
     display: grid;
     height: 82vh;
-    grid-template-rows: repeat(1fr, 5);
+    grid-template-rows: 10% 30% 30% 10% 10%;
     grid-template-columns: repeat(1fr, 4);
 
     grid-template-areas: 
-                    ". board board ."
-                    "px-stat board board po-stat"
-                    "px-stat board board po-stat"
                     ". . . ."
-                    ". next restart .";
+                    "px-stat board board po-stat"
+                    "px-stat board board po-stat"
+                    ". status status ."
+                    ". btns btns .";
 }
 
 .playerX-stat {
     grid-area: px-stat;
+    justify-self: center
 }
 
 .playerO-stat {
     grid-area: po-stat;
+    justify-self: center;
+}
+
+.playerX-name, .playerO-name {
+    font-size: 24px;
 }
 
 .gameboard {
@@ -180,17 +190,38 @@ label[for="p2-name"] {
     max-width: 500px;
     max-height: 500px;
 
-    font-family: 'Sniglet', cursive;
     font-weight: 800;
     font-size: 84px;
 }
 
-.next-round-div {
-    grid-area: next;
+.status-display {
+    grid-area: status;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
 }
 
-.restart-div {
-    grid-area: restart;
+.btn-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+
+    grid-area: btns;
+}
+
+.next-btn, .restart-btn {
+    width: 150px;
+    height: 35px;
+    border: transparent;
+    border-radius: 10px;
+
+    font-family: 'Sniglet', cursive;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--button-text);
 }
 
 .game-cell {
@@ -202,6 +233,12 @@ label[for="p2-name"] {
     justify-content: center;
     align-items: center;
     place-self: center;
+    transition: transform 0.15s;
+}
+
+.game-cell:hover {
+    transform: scale(1.01);
+    background-color: var(--field-hover);
 }
 
 /* Footer */
@@ -211,4 +248,23 @@ label[for="p2-name"] {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 20px;
+}
+
+.fa-heart {
+    color: var(--field-color);
+}
+
+.creator a {
+    text-decoration: none;
+    color: var(--github-icon-color);
+}
+
+.fa-github {
+    transition: transform 0.3s ease-in-out;
+    font-size: 20px;
+}
+
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.1);
 }
