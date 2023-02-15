@@ -178,6 +178,14 @@ label[for="p2-name"] {
     font-size: 24px;
 }
 
+.playerX-score, .playerO-score {
+    font-size: 96px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+}
+
 .gameboard {
     grid-area: board;
     display: grid;
