@@ -92,10 +92,21 @@ const gameBoard = (() => {
 })();
 
 const playerFactory = (symbol, name, type = 'player') => {
+    let _score = 0;
+
+    const getScore = () => _score;
+
+    const updateScore = () => {
+        _score++;
+    }
+
     return {
         name,
         symbol,
         type,
+
+        getScore,
+        updateScore,
     }
 }
 
@@ -168,8 +179,13 @@ const ticTacFlow = (function() {
             return "continue";
     }
 
-    const endGame = () => {
+    const endGame = (win = false) => {
         displayController.deactivateFields();
+        if (win) {
+            winner = gameBoard.getCurrentPlayer();
+            winner.updateScore();
+            displayController.displayScore();
+        }
     }
 
     const newRound = () => {
@@ -191,7 +207,7 @@ const ticTacFlow = (function() {
 
         let roundEnd =  checkForGameEnd();
         if (roundEnd === "win") {
-            endGame();
+            endGame(true);
         }
         else if (roundEnd === "draw") {
             endGame();
@@ -226,7 +242,9 @@ const displayController = (() => {
     const twoStartBtn = document.querySelector("#two-player-start");
     
     const playerXStat = document.querySelector(".playerX-name");
+    const playerXScore = document.querySelector(".playerX-score");
     const playerOStat = document.querySelector(".playerO-name");
+    const playerOScore = document.querySelector(".playerO-score");
     const gameCells = document.querySelectorAll(".game-cell");
 
     const showModeSelect = () => {
@@ -250,6 +268,7 @@ const displayController = (() => {
         }
         playerXStat.textContent = `${playerX.name} (X)`;
         playerOStat.textContent = `${playerO.name} (O)`;
+        displayScore();
 
         activateFields();
 
@@ -279,6 +298,12 @@ const displayController = (() => {
         });
     }
 
+    const displayScore = () => {
+        playerXScore.textContent = playerX.getScore();
+        playerOScore.textContent = playerO.getScore();
+
+    }
+
     return {
         twoPlayerBtn,
         twoStartBtn,
@@ -290,6 +315,7 @@ const displayController = (() => {
         showModeSubMenu,
         activateFields,
         deactivateFields,
+        displayScore,
         resetFields,
     }
 })();
