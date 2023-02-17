@@ -195,6 +195,7 @@ const ticTacFlow = (function() {
 
         displayController.activateFields();
         gameBoard.setCurrentPlayer();
+        displayController.showStatus();
     }
 
     const playOneMove = (event) => {
@@ -215,6 +216,7 @@ const ticTacFlow = (function() {
         else {
             gameBoard.switchPlayer();
         }
+        displayController.showStatus(roundEnd);
     }
 
     const restartGame = () => {
@@ -272,6 +274,8 @@ const displayController = (() => {
 
         activateFields();
 
+        showStatus();
+
         menuElements.nextBtn.addEventListener('click', ticTacFlow.newRound);
         menuElements.restartBTn.addEventListener('click', ticTacFlow.restartGame);
     }
@@ -279,6 +283,21 @@ const displayController = (() => {
     const renderState = function(node) {
         const [row, column] = [node.getAttribute('data-row'), node.getAttribute('data-column')];
         node.textContent = gameBoard.getState(row, column);
+    }
+
+    const showStatus = (gameStatus) => {
+        const statusDisplay = document.querySelector('.status-display');
+        const player = gameBoard.getCurrentPlayer();            // either the winner or next player in case of continue
+
+        if (gameStatus === "win") {
+            statusDisplay.textContent = `${player.name} wins the game!`;
+        }
+        else if (gameStatus === "draw") {
+            statusDisplay.textContent = "It's a Draw!"
+        }
+        else {          /* gameStatus === "continues" */
+            statusDisplay.textContent = `${player.name}'s turn.`
+        }
     }
 
     const resetFields = () => {
@@ -311,6 +330,7 @@ const displayController = (() => {
         
         _init,
         renderState,
+        showStatus,
         showModeSelect,
         showModeSubMenu,
         activateFields,
