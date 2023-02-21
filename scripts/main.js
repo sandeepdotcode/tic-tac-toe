@@ -119,27 +119,27 @@ const ticTacFlow = (function () {
     gameBoard.setCurrentPlayer();
   };
 
-  checkThreeInRow = (arr) =>
+  const checkThreeInRow = (arr) =>
     arr.some((subArr) => {
       const threeFields = subArr[0] + subArr[1] + subArr[2];
       return threeFields === "XXX" || threeFields === "OOO";
     });
 
-  checkWinRow = () => {
+  const checkWinRow = () => {
     rows = [];
     for (let i = 1; i <= 3; i++) rows.push(gameBoard.getRow(i));
 
     return checkThreeInRow(rows);
   };
 
-  checkWinCol = () => {
+  const checkWinCol = () => {
     columns = [];
     for (let i = 1; i <= 3; i++) columns.push(gameBoard.getCol(i));
 
     return checkThreeInRow(columns);
   };
 
-  checkWinDiag = () => {
+  const checkWinDiag = () => {
     diags = gameBoard.getDiags();
 
     return checkThreeInRow(diags);
