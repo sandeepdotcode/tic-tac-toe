@@ -35,7 +35,6 @@
 
 html {
     box-sizing: border-box;
-    height: 100%;
 }
 
 *,
@@ -57,7 +56,7 @@ body {
 
 .header {
     width: 100%;
-    height: 15vh;
+    height: 15%;
     padding: 20px 0;
     text-align: center;
     color: var(--text-color_main);
@@ -69,9 +68,9 @@ body {
 
 #mode-menu {
     position: fixed;
-    height: 82vh;
+    height: 82%;
     width: 100%;
-    top: 15vh;
+    top: 15%;
     background-color: var(--background-color);
     cursor: default;
 
@@ -80,6 +79,20 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10%;
+}
+
+.short-menu {
+    animation: modeSelected 1s;
+
+}
+
+@keyframes modeSelected {
+    /* from {
+        height: 82vh;
+    } */
+    to {
+        height: 25vh;
+    }
 }
 
 .mode-btn {
