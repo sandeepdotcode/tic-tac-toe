@@ -28,12 +28,12 @@
                 <button type="submit" class="start-btn" id="two-player-start">Start Game</button>
             </div>
 
-            <label for="p1-name">Player 1 (X)</label>
+            <label for="p1-name" class="text-label">Player 1 (X)</label>
             <input type="text" name="p1-name" id="p1-name" placeholder="Player 1">
 
             <div class="name-indicator">Name</div>
 
-            <label for="p2-name">Player 2 (0)</label>
+            <label for="p2-name text-label">Player 2 (0)</label>
             <input type="text" name="p2-name" id="p2-name" placeholder="Player 2">
         </form>
     </div>
@@ -41,17 +41,18 @@
     <!-- Single Player Menu -->
     <div class="single-player-menu">
         <form action="" class="single-player-form">
-            <label for="player-name">Player Name
+            <div class="single-name-wrapper">
+                <label for="player-name" class="text-label">Player Name</label>
                 <input type="text" name="player-name" id="player-name--single" placeholder="Player">
-            </label>
+            </div>
 
             <div class="slider-div">
-                <span>X</span>
+                <span class="symbol">X</span>
                 <label class="toggle-switch">
                     <input type="checkbox" id="player-symbol">
                     <span class="slider"></span>
                 </label>
-                <span>O</span>
+                <span class="symbol">O</span>
             </div>
 
            <button type="submit" class="start-btn" id="single-player-start">Start</button>

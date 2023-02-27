@@ -294,14 +294,18 @@ const displayController = (() => {
 
   const showModeSubMenu = (mode) => {
     
-    // modeMenu.style.display = "none";
     if (mode === 0) {
       twoPlayerMenu.style.display = "none";
       singleMenu.style.display = "flex";
+      singlePlayerBtn.classList.add("mode-active");
+      if (menuElements.getMenuSelected()) twoPlayerBtn.classList.remove("mode-active");
     }
     else if (mode === 1) {
       singleMenu.style.display = "none";
       twoPlayerMenu.style.display = "flex";
+      twoPlayerBtn.classList.add("mode-active");
+      if (menuElements.getMenuSelected()) singlePlayerBtn.classList.remove("mode-active");
+
     }
     
     if (!menuElements.getMenuSelected())
@@ -397,9 +401,6 @@ const displayController = (() => {
     resetFields,
   };
 })();
-
-// displayController.gameCells.forEach(displayController.renderState);
-// displayController.init();
 
 displayController.singlePlayerBtn.addEventListener('click', displayController.showModeSubMenu.bind(displayController.singlePlayerBtn, 0));
 
