@@ -320,9 +320,11 @@ const displayController = (() => {
     modeMenu.classList.remove("short-menu");
     if (mode === 0) {
       singleMenu.style.display = "none";
+      singlePlayerBtn.classList.remove("mode-active");
     }
     else if (mode === 1) {
       twoPlayerMenu.style.display = "none";
+      twoPlayerBtn.classList.remove("mode-active");
     }
     playerXStat.textContent = `${playerX.name} (X)`;
     playerOStat.textContent = `${playerO.name} (O)`;
