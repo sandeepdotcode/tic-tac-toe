@@ -13,6 +13,10 @@ By doing this project, I learned
 - Using ESLint & Prettier to enforce coding style (not 100% since there's a lot of coupling due to modules calling each other's methods)
 - CSS animation property
 
+## **Live Preview**:
+
+[Click Here](https://sandeepdotcode.github.io/tic-tac-toe/)
+
 ## **Preview**:
 
 ![Preview](./images/preview.png)
