@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +24,9 @@
     <!-- 2 Player Menu -->
     <div class="two-player-data" id="two-player-menu">
         <form action="" class="player-data-form">
-            <button type="submit" class="start-btn" id="two-player-start">Start Game</button>
+            <div class="two-start-div">
+                <button type="submit" class="start-btn" id="two-player-start">Start Game</button>
+            </div>
 
             <label for="p1-name">Player 1 (X)</label>
             <input type="text" name="p1-name" id="p1-name" placeholder="Player 1">
@@ -35,7 +38,25 @@
         </form>
     </div>
 
-    .
+    <!-- Single Player Menu -->
+    <div class="single-player-menu">
+        <form action="" class="single-player-form">
+            <label for="player-name">Player Name
+                <input type="text" name="player-name" id="player-name--single" placeholder="Player">
+            </label>
+
+            <div class="slider-div">
+                <span>X</span>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span>O</span>
+            </div>
+
+            <button type="submit" class="start-btn" id="sigle-player-start">Start</button>
+        </form>
+    </div>
 
     <!--  Main Game Screen -->
     <div class="game-wrapper">
@@ -44,15 +65,15 @@
             <p class="playerX-score">0</p>
         </div>
         <div class="gameboard">
-           <div class="game-cell" data-row="1" data-column="1"></div>
-           <div class="game-cell" data-row="1" data-column="2"></div>
-           <div class="game-cell" data-row="1" data-column="3"></div>
-           <div class="game-cell" data-row="2" data-column="1"></div>
-           <div class="game-cell" data-row="2" data-column="2"></div>
-           <div class="game-cell" data-row="2" data-column="3"></div>
-           <div class="game-cell" data-row="3" data-column="1"></div>
-           <div class="game-cell" data-row="3" data-column="2"></div>
-           <div class="game-cell" data-row="3" data-column="3"></div>
+            <div class="game-cell" data-row="1" data-column="1"></div>
+            <div class="game-cell" data-row="1" data-column="2"></div>
+            <div class="game-cell" data-row="1" data-column="3"></div>
+            <div class="game-cell" data-row="2" data-column="1"></div>
+            <div class="game-cell" data-row="2" data-column="2"></div>
+            <div class="game-cell" data-row="2" data-column="3"></div>
+            <div class="game-cell" data-row="3" data-column="1"></div>
+            <div class="game-cell" data-row="3" data-column="2"></div>
+            <div class="game-cell" data-row="3" data-column="3"></div>
         </div>
         <div class="playerO-stat">
             <div class="playerO-name">World</div>
@@ -66,9 +87,11 @@
     </div>
 
     <footer class="footer">
-        <p class="creator">Made with <i class="fa-solid fa-heart"></i> by <a href="https://github.com/sandeepdotcode/tic-tac-toe"
-            target="_blank">Sandeep K K <i class="fab fa-github"></i></a>
-    </p>
+        <p class="creator">Made with <i class="fa-solid fa-heart"></i> by <a
+                href="https://github.com/sandeepdotcode/tic-tac-toe" target="_blank">Sandeep K K <i
+                    class="fab fa-github"></i></a>
+        </p>
     </footer>
 </body>
+
 </html>

@@ -2,19 +2,32 @@ const menuElements = (() => {
   const p1NameInput = document.querySelector("#p1-name");
   const p2NameInput = document.querySelector("#p2-name");
 
+  const singleNameInput = document.querySelector("#player-name--single");
+
   const nextBtn = document.querySelector(".next-btn");
   const restartBTn = document.querySelector(".restart-btn");
+
+  let isMenuSelected = false;
+
+  const makeSelected = () => {isMenuSelected = true};
+  const notSelected = () => {isMenuSelected = false};
+  const getMenuSelected = () => isMenuSelected;
 
   return {
     p1NameInput,
     p2NameInput,
+    singleNameInput,
     nextBtn,
     restartBTn,
+
+    makeSelected,
+    notSelected,
+    getMenuSelected
   };
 })();
 
 const gameBoard = (() => {
-  let _gameState = [
+  let gameState = [
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
@@ -23,11 +36,11 @@ const gameBoard = (() => {
   let _currentPlayer = null;
 
   function getState(row, column) {
-    return _gameState[row - 1][column - 1];
+    return gameState[row - 1][column - 1];
   }
 
   function changeState(row, column) {
-    _gameState[row - 1][column - 1] = _currentPlayer.symbol;
+    gameState[row - 1][column - 1] = _currentPlayer.symbol;
   }
 
   const getCurrentPlayer = () => _currentPlayer;
@@ -42,16 +55,16 @@ const gameBoard = (() => {
   };
 
   const reset = () => {
-    _gameState = _gameState.map(() => ["", "", ""]);
+    gameState = gameState.map(() => ["", "", ""]);
     _currentPlayer = null;
   };
 
-  const getRow = (num) => _gameState[num - 1];
+  const getRow = (num) => gameState[num - 1];
 
   const getCol = (num) => {
     col = [];
     for (let i = 0; i < 3; i++) {
-      col.push(_gameState[i][num - 1]);
+      col.push(gameState[i][num - 1]);
     }
 
     return col;
@@ -63,8 +76,8 @@ const gameBoard = (() => {
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (i === j) diag1.push(_gameState[i][j]);
-        if (i + j == 2) diag2.push(_gameState[i][j]);
+        if (i === j) diag1.push(gameState[i][j]);
+        if (i + j == 2) diag2.push(gameState[i][j]);
       }
     }
     return [diag1, diag2];
@@ -199,6 +212,7 @@ const ticTacFlow = (function () {
   };
 
   const restartGame = () => {
+    menuElements.notSelected();
     gameBoard.reset();
     displayController.resetFields();
     moves = 0;
@@ -217,9 +231,12 @@ const ticTacFlow = (function () {
 const displayController = (() => {
   const modeMenu = document.querySelector("#mode-menu");
   const twoPlayerMenu = document.querySelector("#two-player-menu");
+  const singleMenu = document.querySelector(".single-player-menu");
 
   const twoPlayerBtn = document.getElementById("2-player");
   const twoStartBtn = document.querySelector("#two-player-start");
+  const singlePlayerBtn = document.getElementById("1-player");
+
 
   const playerXStat = document.querySelector(".playerX-name");
   const playerXScore = document.querySelector(".playerX-score");
@@ -227,18 +244,36 @@ const displayController = (() => {
   const playerOScore = document.querySelector(".playerO-score");
   const gameCells = document.querySelectorAll(".game-cell");
 
+  const shrinkMenu = () => {
+    modeMenu.classList.add("short-menu");
+  }
+
   const showModeSelect = () => {
     modeMenu.style.display = "flex";
   };
 
   const showModeSubMenu = (mode) => {
-    modeMenu.style.display = "none";
-    if (mode === 1) {
+    
+    // modeMenu.style.display = "none";
+    if (mode === 0) {
+      twoPlayerMenu.style.display = "none";
+      singleMenu.style.display = "flex";
+    }
+    else if (mode === 1) {
+      singleMenu.style.display = "none";
       twoPlayerMenu.style.display = "flex";
+    }
+    
+    if (!menuElements.getMenuSelected())
+    {
+      shrinkMenu();
+      menuElements.makeSelected();
     }
   };
 
-  const _init = (mode) => {
+  const init = (mode) => {
+    modeMenu.style.display = "none";
+    modeMenu.classList.remove("short-menu");
     if (mode === 0) return;
     if (mode === 1) {
       twoPlayerMenu.style.display = "none";
@@ -303,10 +338,12 @@ const displayController = (() => {
 
   return {
     twoPlayerBtn,
+    singlePlayerBtn,
     twoStartBtn,
     gameCells,
 
-    _init,
+    init,
+    shrinkMenu,
     renderState,
     showStatus,
     showModeSelect,
@@ -319,18 +356,20 @@ const displayController = (() => {
 })();
 
 // displayController.gameCells.forEach(displayController.renderState);
-// displayController._init();
+// displayController.init();
 
 let playerX;
 let playerO;
 
-// displayController.singlePlayerBtn.addEventListener('click', displayController.showModeSubmenu.bind(displayController.singlePlayerBtn, 0));
+displayController.singlePlayerBtn.addEventListener('click', displayController.showModeSubMenu.bind(displayController.singlePlayerBtn, 0));
+
 displayController.twoPlayerBtn.addEventListener(
   "click",
   displayController.showModeSubMenu.bind(displayController.twoPlayerBtn, 1)
 );
+
 displayController.twoStartBtn.addEventListener("click", (event) => {
   event.preventDefault();
   ticTacFlow.setUpGame(1);
-  displayController._init(1);
+  displayController.init(1);
 });
