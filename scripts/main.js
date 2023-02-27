@@ -28,6 +28,9 @@ const menuElements = (() => {
   };
 })();
 
+let playerX;
+let playerO;
+
 const gameBoard = (() => {
   let gameState = [
     ["", "", ""],
@@ -35,37 +38,37 @@ const gameBoard = (() => {
     ["", "", ""],
   ];
 
-  let _currentPlayer = null;
+  let currentPlayer = null;
 
   function getState(row, column) {
     return gameState[row - 1][column - 1];
   }
 
   function changeState(row, column) {
-    gameState[row - 1][column - 1] = _currentPlayer.symbol;
+    gameState[row - 1][column - 1] = currentPlayer.symbol;
   }
 
-  const getCurrentPlayer = () => _currentPlayer;
+  const getCurrentPlayer = () => currentPlayer;
 
   const setCurrentPlayer = () => {
-    _currentPlayer = playerX;
+    currentPlayer = playerX;
   };
 
   const switchPlayer = () => {
-    if (_currentPlayer == playerX) _currentPlayer = playerO;
-    else _currentPlayer = playerX;
+    if (currentPlayer == playerX) currentPlayer = playerO;
+    else currentPlayer = playerX;
   };
 
   const reset = () => {
     gameState = gameState.map(() => ["", "", ""]);
-    _currentPlayer = null;
+    currentPlayer = null;
   };
 
   const getRow = (num) => gameState[num - 1];
 
   const getCol = (num) => {
-    col = [];
-    for (let i = 0; i < 3; i++) {
+    const col = [];
+    for (let i = 0; i < 3; i += 1) {
       col.push(gameState[i][num - 1]);
     }
 
@@ -73,13 +76,13 @@ const gameBoard = (() => {
   };
 
   const getDiags = () => {
-    diag1 = [];
-    diag2 = [];
+    const diag1 = [];
+    const diag2 = [];
 
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
         if (i === j) diag1.push(gameState[i][j]);
-        if (i + j == 2) diag2.push(gameState[i][j]);
+        if (i + j === 2) diag2.push(gameState[i][j]);
       }
     }
     return [diag1, diag2];
@@ -99,12 +102,12 @@ const gameBoard = (() => {
 })();
 
 const playerFactory = (symbol, name, type = "player") => {
-  let _score = 0;
+  let score = 0;
 
-  const getScore = () => _score;
+  const getScore = () => score;
 
   const updateScore = () => {
-    _score++;
+    score += 1;
   };
 
   return {
@@ -117,7 +120,7 @@ const playerFactory = (symbol, name, type = "player") => {
   };
 };
 
-const ticTacFlow = (function () {
+const ticTacFlow = (() => {
   let moves = 0;
 
   const setUpGame = (mode) => {
@@ -152,21 +155,21 @@ const ticTacFlow = (function () {
     });
 
   const checkWinRow = () => {
-    rows = [];
-    for (let i = 1; i <= 3; i++) rows.push(gameBoard.getRow(i));
+    const rows = [];
+    for (let i = 1; i <= 3; i += 1) rows.push(gameBoard.getRow(i));
 
     return checkThreeInRow(rows);
   };
 
   const checkWinCol = () => {
-    columns = [];
-    for (let i = 1; i <= 3; i++) columns.push(gameBoard.getCol(i));
+    const columns = [];
+    for (let i = 1; i <= 3; i += 1) columns.push(gameBoard.getCol(i));
 
     return checkThreeInRow(columns);
   };
 
   const checkWinDiag = () => {
-    diags = gameBoard.getDiags();
+    const diags = gameBoard.getDiags();
 
     return checkThreeInRow(diags);
   };
@@ -182,14 +185,14 @@ const ticTacFlow = (function () {
     const winStatus = checkForWin();
 
     if (winStatus) return "win";
-    if (!winStatus && moves == 9) return "draw";
+    if (!winStatus && moves === 9) return "draw";
     return "continue";
   };
 
   const endGame = (win = false) => {
     displayController.deactivateFields();
     if (win) {
-      winner = gameBoard.getCurrentPlayer();
+      const winner = gameBoard.getCurrentPlayer();
       winner.updateScore();
       displayController.displayScore();
     }
@@ -210,11 +213,8 @@ const ticTacFlow = (function () {
   const playComputerMove = () => {
     const [r, c] = [getRandomNum(3).toString(), getRandomNum(3).toString()];
 
-    console.log({r, c});
-
     if (gameBoard.getState(r,c) === "") {
       const node = document.querySelector(`[data-row="${r}"][data-column="${c}"]`);
-      console.log({node});
       node.removeEventListener("click", ticTacFlow.userClicked);
       setTimeout(() => {playOneMove(node)}, 800) ;
     } 
@@ -400,9 +400,6 @@ const displayController = (() => {
 
 // displayController.gameCells.forEach(displayController.renderState);
 // displayController.init();
-
-let playerX;
-let playerO;
 
 displayController.singlePlayerBtn.addEventListener('click', displayController.showModeSubMenu.bind(displayController.singlePlayerBtn, 0));
 
