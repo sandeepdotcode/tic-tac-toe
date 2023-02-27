@@ -10,9 +10,14 @@ By doing this project, I learned
 - Using factory functions instead of object constructors to create objects
 - Scopes and closures
 - Using closures in Module Pattern to create private scope
+- Using ESLint & Prettier to enforce coding style (not 100% since there's a lot of coupling due to modules calling each other's methods)
+- CSS animation property
 
 ## **Preview**:
 
 ![Preview](./images/preview.png)
 
 ## **Features to be added**:
+
+- AI difficulty settings using minimax algorithm
+- refactoring (the code is lot more messier than I like)
