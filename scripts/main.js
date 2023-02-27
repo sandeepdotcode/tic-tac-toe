@@ -336,7 +336,7 @@ const displayController = (() => {
     menuElements.restartBTn.addEventListener("click", ticTacFlow.restartGame);
   };
 
-  const renderState = function (node) {
+  const renderState = (node) => {
     const [row, column] = [
       node.getAttribute("data-row"),
       node.getAttribute("data-column"),
