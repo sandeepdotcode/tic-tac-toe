@@ -205,6 +205,7 @@ const ticTacFlow = (() => {
 
     displayController.activateFields();
     gameBoard.setCurrentPlayer();
+    if (gameBoard.getCurrentPlayer().type === "computer") playComputerMove();
     displayController.showStatus();
   };
 
